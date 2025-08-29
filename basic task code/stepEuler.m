@@ -1,0 +1,15 @@
+function znext = stepEuler(t,z,dt)
+% stepEuler    Compute one step using the Euler method
+% 
+%     ZNEXT = stepEuler(T,Z,DT) computes the state vector ZNEXT at the next
+%     time step T+DT
+
+% Calculate the state derivative from the current state
+A = dt * stateDeriv(t, z);
+B = dt * stateDeriv(t + dt/2, z + A/2);
+C = dt * stateDeriv(t + dt/2, z + B/2);
+D = dt * stateDeriv(t + dt, z + C);
+
+% Calculate the next state vector from the previous one using Euler's
+% update equation
+znext = z + (1/6) * (A + 2*B + 2*C + D);
